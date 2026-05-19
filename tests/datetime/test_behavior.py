@@ -108,6 +108,34 @@ def test_utcfromtimestamp():
     assert p == dt
 
 
+def test_utcfromtimestamp_known_value():
+    p = pendulum.DateTime.utcfromtimestamp(1577836800)
+
+    assert p.year == 2020
+    assert p.month == 1
+    assert p.day == 1
+    assert p.hour == 0
+    assert p.minute == 0
+    assert p.second == 0
+    assert p.microsecond == 0
+
+
+def test_utcfromtimestamp_preserves_microseconds():
+    p = pendulum.DateTime.utcfromtimestamp(1577836800.123456)
+
+    assert p.year == 2020
+    assert p.month == 1
+    assert p.day == 1
+    assert p.microsecond == 123456
+
+
+def test_utcfromtimestamp_returns_naive_pendulum_datetime():
+    p = pendulum.DateTime.utcfromtimestamp(1577836800)
+
+    assert isinstance(p, pendulum.DateTime)
+    assert p.tzinfo is None
+
+
 def test_fromordinal():
     assert datetime.fromordinal(730120) == pendulum.DateTime.fromordinal(730120)
 
