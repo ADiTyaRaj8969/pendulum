@@ -7,6 +7,7 @@ from copy import deepcopy
 from datetime import date
 from datetime import datetime
 from datetime import time
+from datetime import timezone as datetime_timezone
 
 import pytest
 
@@ -102,7 +103,7 @@ def test_fromtimestamp():
 
 def test_utcfromtimestamp():
     p = pendulum.DateTime.utcfromtimestamp(0)
-    dt = datetime.utcfromtimestamp(0)
+    dt = datetime.fromtimestamp(0, tz=datetime_timezone.utc).replace(tzinfo=None)
 
     assert p == dt
 
